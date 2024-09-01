@@ -1,23 +1,19 @@
-/*
-This file glues it all together.
-*/
 "use strict";
 
-var Fritzl = require('./lib/fritzl');
-var Golang = require('./lib/golang');
-var Utils = require('./lib/utils');
+const Fritzl = require('fritzl');
 
-function hd(target, options) {
-	console.log(Utils.hexdump(target, options));
-}
+var Utils = Fritzl.Utils;
+var Golang = Fritzl.Golang;
 
-function ts(address, max) {
-	console.log(Utils.telescope(ptr(address), max));
-}
+Fritzl.disablePinning();
+Fritzl.hookDecryption();
+Fritzl.hookEncryption();
+Fritzl.hookHMAC();
+Fritzl.hookKeygen();
+Fritzl.hookGoEncryption();
 
-Fritzl.hd = hd;
-Fritzl.ts = ts;
-Fritzl.Golang = Golang;
-Fritzl.Utils = Utils;
+global.Fritzl = Fritzl;
+global.hd = Fritzl.hd;
+global.ts = Fritzl.ts;
 
-module.exports = Fritzl;
+console.log('Regex example: ' + JSON.stringify(Golang.findSymbolsByPattern(/decrypt/i), null, 1));
