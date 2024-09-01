@@ -2,11 +2,11 @@ name: Compile Frida Script
 
 on:
   push:
-    paths:
-      - '**/*.js'
+    branches:
+      - '**'  # Run on any branch
   pull_request:
-    paths:
-      - '**/*.js'
+    branches:
+      - '**'  # Run on any branch
 
 jobs:
   build:
@@ -22,20 +22,16 @@ jobs:
         node-version: '14'  # or any version compatible with frida-compile
 
     - name: Install dependencies
-      run: |
-        cd lib  # Navigate to the directory where package.json is located
-        npm install
+      run: npm install
 
     - name: Install frida-compile
       run: npm install -g frida-compile  # Install frida-compile globally
 
     - name: Compile Frida script
-      run: |
-        cd lib  # Navigate to the directory where index.js is located
-        npx frida-compile index.js -o compiled.js
+      run: frida-compile index.js -o compiled.js
 
     - name: Upload compiled script
       uses: actions/upload-artifact@v2
       with:
         name: compiled-js
-        path: lib/compiled.js  # Adjust the path if necessary
+        path: compiled.js
