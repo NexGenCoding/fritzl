@@ -2,11 +2,11 @@ name: Compile Frida Script
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - '**/*.js'  # Trigger on changes to any JS files, adjust as needed
   pull_request:
-    branches:
-      - main
+    paths:
+      - '**/*.js'  # Trigger on PRs affecting any JS files, adjust as needed
 
 jobs:
   build:
