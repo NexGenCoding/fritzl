@@ -1,6 +1,6 @@
 "use strict";
 
-const Fritzl = require('fritzl');
+const Fritzl = require('.lib/fritzl');
 
 var Utils = Fritzl.Utils;
 var Golang = Fritzl.Golang;
